@@ -15,6 +15,12 @@ declare(strict_types=1);
 
 namespace InitPHP\PerformanceMeter;
 
+use function explode;
+use function microtime;
+use function memory_get_usage;
+use function round;
+use function strtolower;
+
 class PerformanceMeter
 {
 
