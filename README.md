@@ -7,7 +7,7 @@ A helpful library that allows you to measure and compare the runtime of the code
 ## Installation
 
 ```
-composer require initphp/performancemeter
+composer require initphp/performance-meter
 ```
 
 This is a library consisting of a single file and a single class. You can choose to manually include the `src/PerformanceMeter.php` file in the project. However, I recommend Composer to manage patches and updates more easily.
