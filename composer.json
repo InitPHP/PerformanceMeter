@@ -1,0 +1,23 @@
+{
+    "name": "initphp/performance-meter",
+    "description": "InitPHP Performance Meter / PHP Basic Profiler",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "src/PerformanceMeter.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Muhammet ŞAFAK",
+            "email": "info@muhammetsafak.com.tr",
+            "role": "Developer",
+            "homepage": "https://www.muhammetsafak.com.tr"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.4"
+    }
+}
