@@ -62,7 +62,7 @@ class PerformanceMeter
     {
         $start = self::getPointer($startPoint);
         $end = self::getPointer($endPoint);
-        return round(($start['time'] - $end['time']), $decimal);
+        return round(($end['time'] - $start['time']), $decimal);
     }
 
     /**
