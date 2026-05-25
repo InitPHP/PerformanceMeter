@@ -14,11 +14,10 @@ declare(strict_types=1);
 
 namespace InitPHP\PerformanceMeter;
 
-use function abs;
-
 use InitPHP\PerformanceMeter\Exception\PointerNotFoundException;
 use InvalidArgumentException;
 
+use function abs;
 use function memory_get_peak_usage;
 use function memory_get_usage;
 use function microtime;
