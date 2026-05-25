@@ -1,12 +1,16 @@
-# PerformanceMeter
+# InitPHP PerformanceMeter
 
-A zero-dependency, single-file, single-class PHP profiler for measuring elapsed time and memory usage between named checkpoints.
+A zero-dependency, single-class PHP profiler for measuring elapsed time and memory usage between named checkpoints.
 
-[![Latest Stable Version](http://poser.pugx.org/initphp/performancemeter/v)](https://packagist.org/packages/initphp/performancemeter) [![Total Downloads](http://poser.pugx.org/initphp/performancemeter/downloads)](https://packagist.org/packages/initphp/performancemeter) [![Latest Unstable Version](http://poser.pugx.org/initphp/performancemeter/v/unstable)](https://packagist.org/packages/initphp/performancemeter) [![License](http://poser.pugx.org/initphp/performancemeter/license)](https://packagist.org/packages/initphp/performancemeter) [![PHP Version Require](http://poser.pugx.org/initphp/performancemeter/require/php)](https://packagist.org/packages/initphp/performancemeter)
+[![CI](https://github.com/InitPHP/PerformanceMeter/actions/workflows/ci.yml/badge.svg)](https://github.com/InitPHP/PerformanceMeter/actions/workflows/ci.yml)
+[![Latest Stable Version](https://poser.pugx.org/initphp/performance-meter/v)](https://packagist.org/packages/initphp/performance-meter)
+[![Total Downloads](https://poser.pugx.org/initphp/performance-meter/downloads)](https://packagist.org/packages/initphp/performance-meter)
+[![License](https://poser.pugx.org/initphp/performance-meter/license)](https://packagist.org/packages/initphp/performance-meter)
+[![PHP Version Require](https://poser.pugx.org/initphp/performance-meter/require/php)](https://packagist.org/packages/initphp/performance-meter)
 
 ## Positioning
 
-This package is intentionally minimal — three static methods (`setPointer`, `elapsedTime`, `memoryUsage`) that work without any other dependency. It exists to fill a specific niche:
+PerformanceMeter is intentionally minimal — a single `final` class with a handful of static methods that works without any other dependency. It exists to fill a specific niche:
 
 > Quick, single-file timing checks where pulling in a full profiling library would be overkill.
 
@@ -22,8 +26,6 @@ It is **not** a replacement for full-featured profilers; it is the cheapest poss
 
 ### When NOT to use this
 
-For anything that fits the description below, prefer a purpose-built tool:
-
 | Need | Use instead |
 |---|---|
 | Application-level profiling with nested sections, periods, categories | [`symfony/stopwatch`](https://github.com/symfony/stopwatch) |
@@ -36,20 +38,18 @@ If you are reaching for any of the above, this package is not the right tool —
 
 ## Requirements
 
-- PHP 7.4 or higher
-- No other dependencies
+- PHP **8.1** or higher
+- No runtime dependencies
 
 ## Installation
 
-```
+```bash
 composer require initphp/performance-meter
 ```
 
-You can also include `src/PerformanceMeter.php` manually if you cannot use Composer — the package is a single file with no transitive dependencies.
+You can also include `src/PerformanceMeter.php` (and `src/Exception/PointerNotFoundException.php`) manually if you cannot use Composer — the package has no transitive dependencies.
 
-## Usage
-
-### Basic — elapsed time and memory between two named points
+## Quick start
 
 ```php
 require_once 'vendor/autoload.php';
@@ -72,9 +72,9 @@ echo PerformanceMeter::memoryUsage('main', 'mainEnd', 2) . ' memory used' . PHP_
 // 0.77KB memory used
 ```
 
-### Open-ended measurement — measure from a point up to "right now"
+### Open-ended measurement
 
-If you only pass a single pointer name, the second argument defaults to the current moment:
+When you only pass a starting checkpoint, the second argument defaults to "now":
 
 ```php
 PerformanceMeter::setPointer('boot');
@@ -86,7 +86,7 @@ echo PerformanceMeter::elapsedTime('boot') . ' seconds since boot' . PHP_EOL;
 
 ### `mark()` alias
 
-`mark($name)` is an alias for `setPointer($name)` for readers who prefer that vocabulary:
+`mark($name)` is a one-to-one alias of `setPointer($name)` for readers who prefer stopwatch-style vocabulary:
 
 ```php
 PerformanceMeter::mark('before');
@@ -96,21 +96,72 @@ PerformanceMeter::mark('after');
 echo PerformanceMeter::elapsedTime('before', 'after');
 ```
 
-## API Reference
+More usage patterns — peak memory, comparing two implementations, resetting between runs — live in [`docs/cookbook.md`](docs/cookbook.md).
 
-| Method | Description |
+## API at a glance
+
+| Method | Purpose |
 |---|---|
-| `setPointer(string $name): void` | Record a checkpoint with the current `microtime()` and `memory_get_usage()`. Names are case-insensitive (stored lowercased). |
+| `setPointer(string $name): void` | Record a checkpoint with the current time + memory. Case-insensitive. |
 | `mark(string $name): void` | Alias of `setPointer()`. |
-| `elapsedTime(string $startPoint, ?string $endPoint = null, int $decimal = 4): float` | Seconds between two pointers. If `$endPoint` is `null`, "now" is used. |
-| `memoryUsage(string $startPoint, ?string $endPoint = null, int $decimal = 2): string` | Memory delta between two pointers, formatted as `"x.xxKB"` or `"x.xxMB"`. If `$endPoint` is `null`, "now" is used. |
+| `elapsedTime(string $start, ?string $end = null, int $decimal = 4): float` | Seconds between two checkpoints. `$end = null` ⇒ "now". |
+| `memoryUsage(string $start, ?string $end = null, int $decimal = 2, bool $realUsage = false): string` | Memory delta, formatted as `"x.xxKB"` or `"x.xxMB"`. |
+| `peakMemoryUsage(int $decimal = 2, bool $realUsage = false): string` | Peak memory used so far by the process. |
+| `has(string $name): bool` | Whether a checkpoint with that name has been recorded. |
+| `getPointers(): array` | Snapshot copy of every recorded checkpoint. |
+| `reset(): void` | Clear all checkpoints. |
 
-Pointers are stored statically on the class, so all measurements share the same global registry within a process. This is intentional — it keeps the API as terse as possible for the use cases above. If you need isolated, instance-scoped measurement scopes, use `symfony/stopwatch`.
+`elapsedTime()` and `memoryUsage()` **throw** `InitPHP\PerformanceMeter\Exception\PointerNotFoundException` when `$start` (or a non-null `$end`) does not match a recorded checkpoint.
+
+Full reference with parameter notes, error conditions and runnable examples: [`docs/api-reference.md`](docs/api-reference.md).
+
+## Documentation
+
+- [`docs/getting-started.md`](docs/getting-started.md) — install, first measurement, conceptual model
+- [`docs/api-reference.md`](docs/api-reference.md) — every public method, parameter by parameter
+- [`docs/cookbook.md`](docs/cookbook.md) — real-world recipes (CLI benchmarks, cron timing, A/B comparisons, peak memory tracking, v1 → v2 migration)
+
+## Migrating from v1.x to v2.0
+
+v2.0 is a clean break that fixes real bugs and tightens the API. Most callers only need to upgrade PHP.
+
+| Area | v1 behaviour | v2 behaviour | Action |
+|---|---|---|---|
+| PHP requirement | `>=7.4` | `^8.1` | Upgrade your runtime. |
+| Missing `$startPoint` | Silently returned ~0 (`"now" – "now"`) | Throws `PointerNotFoundException` | Wrap in `try/catch` or call `PerformanceMeter::has()` first. |
+| Missing non-null `$endPoint` | Silently fell back to "now" | Throws `PointerNotFoundException` | Same — fix the typo or check with `has()`. |
+| `memoryUsage()` with a freed-memory delta ≥ 1 MB | Reported in `KB` (broken) | Reports correctly in `MB` with sign | No code change; output now matches expectations. |
+| `decimal < 0` | Accepted, produced odd output | Throws `InvalidArgumentException` | Pass `decimal >= 0`. |
+| Subclassing `PerformanceMeter` | Allowed (pointless — all-static) | Blocked (`final`) | Compose, do not inherit. |
+| `protected static $pointers` | Visible to subclasses | `private` | Use `getPointers()` / `has()` / `reset()`. |
+| New: `reset()`, `has()`, `peakMemoryUsage()`, `getPointers()` | — | Added | Opt-in. |
+
+A migration cookbook entry with side-by-side diffs lives in [`docs/cookbook.md`](docs/cookbook.md#v1--v2-migration).
+
+## Contributing
+
+This package follows the org-wide [InitPHP contribution guide](https://github.com/InitPHP/.github/blob/main/CONTRIBUTING.md) — PSR-12, `declare(strict_types=1);`, PHPStan at the configured level, PHPUnit-tested behaviour changes, Conventional Commits.
+
+Locally:
+
+```bash
+composer install
+composer test         # PHPUnit
+composer phpstan      # static analysis
+composer cs-check     # coding standards (use cs-fix to apply)
+composer qa           # all of the above
+```
+
+CI runs on PHP 8.1 → 8.4 against both highest and lowest installable dependencies.
+
+## Security
+
+Please report security issues privately — see the org-wide [SECURITY.md](https://github.com/InitPHP/.github/blob/main/SECURITY.md). Do not open public issues for vulnerabilities.
 
 ## Credits
 
-- [Muhammet ŞAFAK](https://www.muhammetsafak.com.tr) <<info@muhammetsafak.com.tr>>
+- [Muhammet ŞAFAK](https://www.muhammetsafak.com.tr) — &lt;info@muhammetsafak.com.tr&gt;
 
 ## License
 
-Copyright &copy; 2022 [MIT License](./LICENSE)
+Released under the [MIT License](./LICENSE). Copyright © 2022-2026 InitPHP.

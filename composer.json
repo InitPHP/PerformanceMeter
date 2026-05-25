@@ -1,13 +1,17 @@
 {
     "name": "initphp/performance-meter",
-    "description": "InitPHP Performance Meter / PHP Basic Profiler",
+    "description": "Zero-dependency, single-file PHP profiler for measuring elapsed time and memory usage between named checkpoints.",
     "type": "library",
     "license": "MIT",
-    "autoload": {
-        "files": [
-            "src/PerformanceMeter.php"
-        ]
-    },
+    "keywords": [
+        "profiler",
+        "benchmark",
+        "performance",
+        "memory",
+        "timing",
+        "stopwatch",
+        "initphp"
+    ],
     "authors": [
         {
             "name": "Muhammet ŞAFAK",
@@ -16,8 +20,53 @@
             "homepage": "https://www.muhammetsafak.com.tr"
         }
     ],
-    "minimum-stability": "stable",
+    "support": {
+        "issues": "https://github.com/InitPHP/PerformanceMeter/issues",
+        "source": "https://github.com/InitPHP/PerformanceMeter",
+        "docs": "https://github.com/InitPHP/PerformanceMeter/tree/main/docs"
+    },
     "require": {
-        "php": ">=7.4"
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5",
+        "phpstan/phpstan": "^1.11",
+        "friendsofphp/php-cs-fixer": "^3.50"
+    },
+    "autoload": {
+        "psr-4": {
+            "InitPHP\\PerformanceMeter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "InitPHP\\PerformanceMeter\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html build/coverage --coverage-text",
+        "phpstan": "phpstan analyse --memory-limit=512M",
+        "cs-check": "php-cs-fixer fix --dry-run --diff",
+        "cs-fix": "php-cs-fixer fix",
+        "qa": [
+            "@cs-check",
+            "@phpstan",
+            "@test"
+        ]
+    },
+    "scripts-descriptions": {
+        "test": "Run the PHPUnit test suite.",
+        "test-coverage": "Run tests and emit HTML + text coverage reports.",
+        "phpstan": "Run PHPStan static analysis at the configured level.",
+        "cs-check": "Verify coding standards without modifying files.",
+        "cs-fix": "Apply coding standard fixes in place.",
+        "qa": "Run the full QA pipeline (cs-check, phpstan, test)."
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {}
     }
 }

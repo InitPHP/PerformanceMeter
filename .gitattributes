@@ -1,0 +1,18 @@
+# Normalise line endings on checkout
+* text=auto eol=lf
+
+# Files and directories that must not ship in the Composer dist tarball.
+# Keeps `composer require initphp/performance-meter` lean for end users.
+/.github                  export-ignore
+/docs                     export-ignore
+/tests                    export-ignore
+/.editorconfig            export-ignore
+/.gitattributes           export-ignore
+/.gitignore               export-ignore
+/.php-cs-fixer.dist.php   export-ignore
+/.php-cs-fixer.cache      export-ignore
+/.phpunit.cache           export-ignore
+/.phpunit.result.cache    export-ignore
+/CHANGELOG.md             export-ignore
+/phpstan.neon.dist        export-ignore
+/phpunit.xml.dist         export-ignore

@@ -3,3 +3,8 @@
 /.vs/
 /vendor/
 /composer.lock
+/build/
+/.phpunit.cache/
+/.phpunit.result.cache
+/.php-cs-fixer.cache
+/.phpstan/
