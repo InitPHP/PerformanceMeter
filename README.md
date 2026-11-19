@@ -2,7 +2,7 @@
 
 A zero-dependency, single-class PHP profiler for measuring elapsed time and memory usage between named checkpoints.
 
-[![Designed & Maintained with Tan](https://www.muhammetsafak.com.tr/badges/designed-maintained-with-tan.svg)](https://www.muhammetsafak.com.tr/en/tan/)
+[![Designed & Maintained with Tan](https://muhammetsafak.com/badges/designed-maintained-with-tan.svg)](https://muhammetsafak.com/tan/)
 [![CI](https://github.com/InitPHP/PerformanceMeter/actions/workflows/ci.yml/badge.svg)](https://github.com/InitPHP/PerformanceMeter/actions/workflows/ci.yml)
 [![Latest Stable Version](https://poser.pugx.org/initphp/performance-meter/v)](https://packagist.org/packages/initphp/performance-meter)
 [![Total Downloads](https://poser.pugx.org/initphp/performance-meter/downloads)](https://packagist.org/packages/initphp/performance-meter)
@@ -161,7 +161,7 @@ Please report security issues privately — see the org-wide [SECURITY.md](https
 
 ## Credits
 
-- [Muhammet ŞAFAK](https://www.muhammetsafak.com.tr) — &lt;info@muhammetsafak.com.tr&gt;
+- [Muhammet ŞAFAK](https://muhammetsafak.com) — &lt;info@muhammetsafak.com&gt;
 
 ## License
 
