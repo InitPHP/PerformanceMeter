@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * This file is part of InitPHP PerformanceMeter.
  *
- * @author    Muhammet ŞAFAK <info@muhammetsafak.com.tr>
+ * @author    Muhammet ŞAFAK <info@muhammetsafak.com>
  * @copyright Copyright © 2022 InitPHP
  * @license   https://opensource.org/licenses/MIT  MIT License
  *
