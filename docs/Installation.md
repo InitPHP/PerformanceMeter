@@ -29,7 +29,7 @@ use InitPHP\PerformanceMeter\PerformanceMeter;
 To pin the major version explicitly:
 
 ```bash
-composer require initphp/performance-meter:^2.0
+composer require initphp/performance-meter:^3.0
 ```
 
 ## Without Composer
