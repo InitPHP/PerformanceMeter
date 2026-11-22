@@ -39,7 +39,7 @@ If you are reaching for any of the above, this package is not the right tool —
 
 ## Requirements
 
-- PHP **8.1** or higher
+- PHP **8.2** or higher
 - No runtime dependencies
 
 ## Installation
@@ -141,7 +141,7 @@ A migration cookbook entry with side-by-side diffs lives in [`docs/cookbook.md`]
 
 ## Contributing
 
-This package follows the org-wide [InitPHP contribution guide](https://github.com/InitPHP/.github/blob/main/CONTRIBUTING.md) — PSR-12, `declare(strict_types=1);`, PHPStan at the configured level, PHPUnit-tested behaviour changes, Conventional Commits.
+This package follows the org-wide [InitPHP contribution guide](https://github.com/InitPHP/.github/blob/main/CONTRIBUTING.md) — PER-CS, `declare(strict_types=1);`, PHPStan at the configured level, PHPUnit-tested behaviour changes, Conventional Commits.
 
 Locally:
 
@@ -153,7 +153,7 @@ composer cs-check     # coding standards (use cs-fix to apply)
 composer qa           # all of the above
 ```
 
-CI runs on PHP 8.1 → 8.4 against both highest and lowest installable dependencies.
+CI runs on PHP 8.2 → 8.5 against both highest and lowest installable dependencies.
 
 ## Security
 

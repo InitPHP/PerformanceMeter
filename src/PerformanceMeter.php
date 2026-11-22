@@ -65,9 +65,7 @@ final class PerformanceMeter
      *
      * @codeCoverageIgnore
      */
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * Record a checkpoint under the given name.
