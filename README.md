@@ -97,7 +97,7 @@ PerformanceMeter::mark('after');
 echo PerformanceMeter::elapsedTime('before', 'after');
 ```
 
-More usage patterns — peak memory, comparing two implementations, resetting between runs — live in [`docs/cookbook.md`](docs/cookbook.md).
+More usage patterns — peak memory, comparing two implementations, resetting between runs — live in [`docs/Recipes.md`](docs/Recipes.md).
 
 ## API at a glance
 
@@ -114,13 +114,13 @@ More usage patterns — peak memory, comparing two implementations, resetting be
 
 `elapsedTime()` and `memoryUsage()` **throw** `InitPHP\PerformanceMeter\Exception\PointerNotFoundException` when `$start` (or a non-null `$end`) does not match a recorded checkpoint.
 
-Full reference with parameter notes, error conditions and runnable examples: [`docs/api-reference.md`](docs/api-reference.md).
+Full reference with parameter notes, error conditions and runnable examples: [`docs/API-Reference.md`](docs/API-Reference.md).
 
 ## Documentation
 
-- [`docs/getting-started.md`](docs/getting-started.md) — install, first measurement, conceptual model
-- [`docs/api-reference.md`](docs/api-reference.md) — every public method, parameter by parameter
-- [`docs/cookbook.md`](docs/cookbook.md) — real-world recipes (CLI benchmarks, cron timing, A/B comparisons, peak memory tracking, v1 → v2 migration)
+- [`docs/Quick-Start.md`](docs/Quick-Start.md) — first measurement in a few minutes; [`docs/Concepts.md`](docs/Concepts.md) — the conceptual model
+- [`docs/API-Reference.md`](docs/API-Reference.md) — every public method, parameter by parameter
+- [`docs/Recipes.md`](docs/Recipes.md) — real-world recipes (CLI benchmarks, cron timing, A/B comparisons, peak memory tracking)
 
 ## Migrating from v1.x to v2.0
 
@@ -137,7 +137,7 @@ v2.0 is a clean break that fixes real bugs and tightens the API. Most callers on
 | `protected static $pointers` | Visible to subclasses | `private` | Use `getPointers()` / `has()` / `reset()`. |
 | New: `reset()`, `has()`, `peakMemoryUsage()`, `getPointers()` | — | Added | Opt-in. |
 
-A migration cookbook entry with side-by-side diffs lives in [`docs/cookbook.md`](docs/cookbook.md#v1--v2-migration).
+A migration guide with side-by-side diffs lives in [`docs/Migration-Guide.md`](docs/Migration-Guide.md).
 
 ## Contributing
 
