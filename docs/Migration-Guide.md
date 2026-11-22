@@ -2,7 +2,7 @@
 
 v2.0 fixes real bugs and tightens the API. Most callers only need to bump PHP. This page lists every behavioural change, what to do about it, and how to apply each change to existing code.
 
-> The version table below is the 1.x to 2.0 picture, where the PHP floor became 8.1. The development line after 2.0.0 raises it again to PHP 8.2 (see the [Changelog](https://github.com/InitPHP/PerformanceMeter/blob/main/CHANGELOG.md)), so check [Installation](Installation.md) for the current requirement.
+> The version table below is the 1.x to 2.0 picture, where the PHP floor became 8.1. Version 3.0.0 raises it again to PHP 8.2 (see the [Changelog](https://github.com/InitPHP/PerformanceMeter/blob/main/CHANGELOG.md)), so check [Installation](Installation.md) for the current requirement.
 
 ## TL;DR
 
