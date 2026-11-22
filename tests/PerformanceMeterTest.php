@@ -300,7 +300,7 @@ final class PerformanceMeterTest extends TestCase
         PerformanceMeter::setPointer('');
 
         self::assertTrue(PerformanceMeter::has(''));
-        self::assertIsFloat(PerformanceMeter::elapsedTime(''));
+        self::assertGreaterThanOrEqual(0.0, PerformanceMeter::elapsedTime(''));
     }
 
     /**
