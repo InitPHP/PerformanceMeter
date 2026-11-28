@@ -153,7 +153,7 @@ composer cs-check     # coding standards (use cs-fix to apply)
 composer qa           # all of the above
 ```
 
-CI runs on PHP 8.2 → 8.5 against both highest and lowest installable dependencies.
+CI runs on PHP 8.2 → 8.6 against both highest and lowest installable dependencies.
 
 ## Security
 

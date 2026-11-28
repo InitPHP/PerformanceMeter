@@ -14,7 +14,7 @@ composer cs-check     # coding standards
 composer qa           # all three
 ```
 
-CI runs the matrix on PHP 8.2, 8.3, 8.4, and 8.5 with the highest installable dependencies, plus a PHP 8.2 run with the lowest, and separate static-analysis and coding-standards jobs.
+CI runs the matrix on PHP 8.2, 8.3, 8.4, 8.5, and 8.6 with the highest installable dependencies, plus a PHP 8.2 run with the lowest, and separate static-analysis and coding-standards jobs.
 
 The test file is `tests/PerformanceMeterTest.php`. Notable patterns:
 
