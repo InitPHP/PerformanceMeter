@@ -51,7 +51,7 @@ See [Use Cases & Comparison](Use-Cases.md) for a side-by-side with `symfony/stop
 - Requires **PHP 8.2+**
 - Zero runtime dependencies
 - 100 % line / method / class test coverage
-- CI runs on PHP 8.2 → 8.5 with the highest installable dependencies, plus a PHP 8.2 run with the lowest
+- CI runs on PHP 8.2 → 8.6 with the highest installable dependencies, plus a PHP 8.2 run with the lowest
 - Static analysis: PHPStan `level: max`, clean
 - Coding standard: PER-CS via PHP-CS-Fixer, enforced in CI
 
